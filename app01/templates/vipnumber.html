@@ -67,14 +67,23 @@
             </div>
         </div>
 
-        <ul class="pagination">
-            <li ><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
+        <div class="clearfix">
+            <ul class="pagination" style="float: left">
+                {{ page_string }}
 
-        </ul>
+                <li>
+                    <form method="get" style="float: left;">
+                        <input type="text" class="form-control" placeholder="Search for page" name="page"
+                               style="position: relative; float: left;width: 128px;">
 
+                        <button class="btn btn-default" type="submit">
+                            Submit
+                        </button>
+
+                    </form>
+                </li>
+            </ul>
+        </div>
     </div>
+
 {% endblock %}

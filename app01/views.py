@@ -3,6 +3,7 @@ from app01 import models
 from django import forms
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+from django.utils.safestring import mark_safe
 
 
 # Create your views here.
@@ -98,9 +99,59 @@ def vipnumber(request):
     if value:
         data_dict["mobile__contains"] = value
 
-    queryset = models.VipNumber.objects.filter(**data_dict).order_by("-level")
 
-    return render(request, "vipnumber.html", {"queryset": queryset,"value":value})
+    # page
+    page = int(request.GET.get("page",1))
+    page_size = 3
+    start = (page-1) * page_size
+    end = page*page_size
+
+    queryset = models.VipNumber.objects.filter(**data_dict).order_by("-level")[start:end]
+
+    total_page = models.VipNumber.objects.filter(**data_dict).order_by("level").count()
+    total_page_count, div = divmod(total_page,page_size)
+    if div:
+        total_page_count += 1
+
+    # front 2 pages, after 2 pages
+    plus = 2
+    if page <= plus:
+        start_page = 1
+        end_page = 2*plus + 1
+
+    elif page + plus > total_page_count:
+        start_page = total_page_count - 2 * plus
+        end_page = total_page_count
+    else:
+        start_page = page-plus
+        end_page = page + plus
+
+    page_list = []
+
+    page_list.append('<li><a href="?page={}"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a></li>'.format(1))
+
+    if page > 1:
+        page_list.append('<li><a href="?page={}"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a></li>'.format(page-1))
+    else:
+        page_list.append('<li><a href="?page={}"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a></li>'.format(1))
+
+    for i in range(start_page,end_page + 1):
+        if i == page:
+            element = '<li class="active"><a href="?page={}">{}</a></li>'.format(i,i)
+        else:
+            element = '<li><a href="?page={}">{}</a></li>'.format(i, i)
+        page_list.append(element)
+
+    if page < total_page_count:
+        page_list.append('<li><a href="?page={}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>'.format(page+1))
+    else:
+        page_list.append('<li><a href="?page={}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>'.format(total_page_count))
+
+    page_list.append('<li><a href="?page={}"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a></li>'.format(total_page_count))
+    page_string = mark_safe("".join(page_list))
+
+
+    return render(request, "vipnumber.html", {"queryset": queryset,"value":value, "page_string":page_string})
 
 
 
