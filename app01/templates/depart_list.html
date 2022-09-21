@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 15px;">
+            <a href="/department/add/" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Add Deparment
+            </a>
+        </div>
+        <div>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    Department List
+                </div>
+
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Department</th>
+                        <th>Operate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for obj in depart %}
+                        <tr>
+                            <th scope="row">
+                                {{ obj.id }}
+                            </th>
+                            <td>
+                                {{ obj.title }}
+                            </td>
+                            <td>
+                                <a class="btn-xs btn-primary" href="/department/{{ obj.id }}/edit"> Edit</a>
+                                <a class="btn-xs btn-danger" href="/department/delete/?nid={{ obj.id }}"> Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 15px;">
+            <a href="/user/add/" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Add User
+            </a>
+        </div>
+        <div>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    User List
+                </div>
+
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Password</th>
+                        <th>Age</th>
+                        <th>Account</th>
+                        <th>Create Time</th>
+                        <th>Gender</th>
+                        <th>Department</th>
+                        <th>Operate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for obj in querySet %}
+                        <tr>
+                            <th scope="row">{{ obj.id }}</th>
+                            <td>{{ obj.name }}</td>
+                            <td>{{ obj.password }}</td>
+                            <td>{{ obj.age }}</td>
+                            <td>{{ obj.account }}</td>
+                            <td>{{ obj.create_time|date:"Y-m-d"}}</td>
+                            <td>{{ obj.get_gender_display }}</td>
+                            <td>{{ obj.depart_id.title }}</td>
+                            <td>
+                                <a class="btn-xs btn-primary" href="/user/{{ obj.id }}/edit"> Edit</a>
+                                <a class="btn-xs btn-danger" href="/user/delete/?nid={{ obj.id }}"> Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

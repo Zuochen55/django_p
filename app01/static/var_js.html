@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <span id="text">Welcome to my Web</span>
+    <script type="text/javascript">
+        function show(){
+        // 1. 在HTML中找到某个标签，变更且获取它的内容（DOM）
+        var tag = document.getElementById("text");
+        var dataString = tag.innerText;
+
+        // 2. 动态起来，把文本中的第一个字符放到最后一个
+        var firstChar = dataString[0];
+        var otherChar = dataString.substring(1,dataString.length);
+        var newChar = otherChar + firstChar;
+
+        // 3. 网页中展示新文本
+        tag.innerText = newChar
+        }
+
+    setInterval(show,500);
+
+    </script>
+
+</body>
+</html>

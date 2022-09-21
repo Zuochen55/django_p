@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 15px;" class="clearfix">
+            <a href="/vip/number/add/" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Add VIP Number
+            </a>
+
+
+            <div style="width: 300px;float: right;">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." name="q"
+                               value="{{ value }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div><!-- /.col-lg-6 -->
+        </div>
+
+        <div>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    VIP Number List
+                </div>
+
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Mobile</th>
+                        <th>Price</th>
+                        <th>Level</th>
+                        <th>Status</th>
+                        <th>Operate</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for obj in queryset %}
+                        <tr>
+                            <th scope="row">{{ obj.id }}</th>
+                            <td>{{ obj.mobile }}</td>
+                            <td>{{ obj.price }}</td>
+                            <td>{{ obj.get_level_display }}</td>
+                            <td>{{ obj.get_status_display }}</td>
+                            <td>
+                                <a class="btn-xs btn-primary" href="/vip/number/{{ obj.id }}/edit"> Edit</a>
+                                <a class="btn-xs btn-danger" href="/vip/number/{{ obj.id }}/delete"> Delete</a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <ul class="pagination">
+            <li ><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+
+        </ul>
+
+    </div>
+{% endblock %}
