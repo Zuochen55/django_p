@@ -1,4 +1,10 @@
 {% extends 'layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet"
+          href="{% static 'plugins/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css' %}">
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -10,14 +16,14 @@
                 <form method="post" novalidate>
                     {% csrf_token %}
                     {% for field in form %}
-                    <div class="form-group">
-                        <label>{{ field.label }}</label>
-                        {{ field }}
-                        <span style="color: red">
+                        <div class="form-group">
+                            <label>{{ field.label }}</label>
+                            {{ field }}
+                            <span style="color: red">
                             {{ field.errors.0 }}
                         </span>
-                        <!--<input type="text" class="form-control" name="title" placeholder="Title"> -->
-                    </div>
+                            <!--<input type="text" class="form-control" name="title" placeholder="Title"> -->
+                        </div>
 
                     {% endfor %}
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -26,4 +32,19 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'plugins/bootstrap-datepicker-master/js/bootstrap-datepicker.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#id_create_time").datepicker({
+                format: "yyyy-mm-dd",
+                startDate: '0',
+                autoclose: true
+            });
+        });
+
+    </script>
+
 {% endblock %}

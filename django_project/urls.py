@@ -15,24 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app01 import views
+
+from app01.views import department,user,vip_number
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('department/list/', views.department),
-    path('department/add/', views.add_department),
-    path('department/delete/', views.delete_department),
-    path('department/<int:nid>/edit/', views.edit_department),
+    path('department/list/', department.department),
+    path('department/add/', department.add_department),
+    path('department/delete/', department.delete_department),
+    path('department/<int:nid>/edit/', department.edit_department),
 
-    path('user/list/', views.user_list),
-    path('user/add/', views.user_add),
-    path('user/<int:nid>/edit/', views.user_edit),
-    path('user/delete/', views.user_delete),
+    path('user/list/', user.user_list),
+    path('user/add/', user.user_add),
+    path('user/<int:nid>/edit/', user.user_edit),
+    path('user/delete/', user.user_delete),
 
-    path('vip/number/list/', views.vipnumber),
-    path('vip/number/add/', views.vipnumber_add),
-    path('vip/number/<int:nid>/edit/', views.vipnumber_edit),
-    path('vip/number/<int:nid>/delete/', views.vipnumber_delete),
+    path('vip/number/list/', vip_number.vipnumber),
+    path('vip/number/add/', vip_number.vipnumber_add),
+    path('vip/number/<int:nid>/edit/', vip_number.vipnumber_edit),
+    path('vip/number/<int:nid>/delete/', vip_number.vipnumber_delete),
 
 
 ]
