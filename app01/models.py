@@ -1,6 +1,11 @@
 from django.db import models
 
 # Create your models here.
+
+class Admin(models.Model):
+    name = models.CharField(verbose_name="Name", max_length=32)
+    password = models.CharField(verbose_name="Password", max_length=64)
+
 class Department(models.Model):
     title = models.CharField(verbose_name="depatment_title", max_length=32)
 
@@ -40,3 +45,5 @@ class VipNumber(models.Model):
         (2,"sold")
     )
     status = models.SmallIntegerField(verbose_name="status", choices=status_choices,default=1)
+
+

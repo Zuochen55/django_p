@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from app01.views import department,user,vip_number
+from app01.views import department,user,vip_number,admin,account
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -34,6 +34,16 @@ urlpatterns = [
     path('vip/number/add/', vip_number.vipnumber_add),
     path('vip/number/<int:nid>/edit/', vip_number.vipnumber_edit),
     path('vip/number/<int:nid>/delete/', vip_number.vipnumber_delete),
+
+    path('admin/list/', admin.admin_list),
+    path('admin/add/', admin.admin_add),
+    path('admin/<int:nid>/edit/', admin.admin_edit),
+    path('admin/<int:nid>/delete/', admin.admin_delete),
+    path('admin/<int:nid>/reset/', admin.admin_reset),
+
+    path('account/login', account.account_login),
+
+
 
 
 ]

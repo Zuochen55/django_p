@@ -16,24 +16,29 @@ class Pagination:
 
         self.page_queryset = queryset[self.start:self.end]
 
-        total_page = queryset.count()
-        total_page_count, div = divmod(total_page, page_size)
+        total_count = queryset.count()
+        total_page_count, div = divmod(total_count, page_size)
         if div:
             total_page_count += 1
         self.total_page_count = total_page_count
         self.plus = plus
 
     def html(self):
-        if self.page <= self.plus:
+        if self.total_page_count <= 2*self.plus + 1:
             start_page = 1
-            end_page = 2 * self.plus + 1
-
-        elif self.page + self.plus > self.total_page_count:
-            start_page = self.total_page_count - 2 * self.plus
             end_page = self.total_page_count
         else:
-            start_page = self.page - self.plus
-            end_page = self.page + self.plus
+
+            if self.page <= self.plus:
+                start_page = 1
+                end_page = 2 * self.plus + 1
+
+            elif self.page + self.plus > self.total_page_count:
+                start_page = self.total_page_count - 2 * self.plus
+                end_page = self.total_page_count
+            else:
+                start_page = self.page - self.plus
+                end_page = self.page + self.plus
 
         page_list = []
 

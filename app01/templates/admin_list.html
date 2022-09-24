@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 15px;">
+            <a href="/admin/add/" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Add Admin
+            </a>
+        </div>
+        <div>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    Admin List
+                </div>
+
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Password</th>
+                        <th>Reset Password</th>
+                        <th>Operate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for obj in queryset %}
+                        <tr>
+                            <th scope="row">{{ obj.id }}</th>
+                            <td>{{ obj.name }}</td>
+                            <td>******</td>
+                            <td><a href="/admin/{{ obj.id }}/reset">reset password</a></td>
+                            <td>
+                                <a class="btn-xs btn-primary" href="/admin/{{ obj.id }}/edit"> Edit</a>
+                                <a class="btn-xs btn-danger" href="/admin/{{ obj.id }}/delete"> Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clearfix">
+            <ul class="pagination" style="float: left">
+                {{ page_string }}
+
+                <li>
+                    <form method="get" style="float: left;">
+                        <input type="text" class="form-control" placeholder="Search for page" name="page"
+                               style="position: relative; float: left;width: 128px;">
+
+                        <button class="btn btn-default" type="submit">
+                            Submit
+                        </button>
+
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
