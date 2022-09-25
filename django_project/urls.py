@@ -41,7 +41,9 @@ urlpatterns = [
     path('admin/<int:nid>/delete/', admin.admin_delete),
     path('admin/<int:nid>/reset/', admin.admin_reset),
 
-    path('account/login', account.account_login),
+    path('account/login/', account.account_login),
+    path('account/logout/', account.account_logout),
+    path('check/code/', account.image_code)
 
 
 
