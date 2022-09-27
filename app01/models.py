@@ -6,6 +6,10 @@ class Admin(models.Model):
     name = models.CharField(verbose_name="Name", max_length=32)
     password = models.CharField(verbose_name="Password", max_length=64)
 
+    def __str__(self):
+        return self.name
+
+
 class Department(models.Model):
     title = models.CharField(verbose_name="depatment_title", max_length=32)
 
@@ -46,4 +50,13 @@ class VipNumber(models.Model):
     )
     status = models.SmallIntegerField(verbose_name="status", choices=status_choices,default=1)
 
+class Task(models.Model):
+    level_choices = (
+        (1,"normal"),
+        (2,"urgent")
+    )
+    level = models.SmallIntegerField(verbose_name="level", choices=level_choices, default=1)
+    title = models.CharField(verbose_name="title", max_length=64)
+    description = models.TextField(verbose_name="description")
+    responsible = models.ForeignKey(verbose_name="responsible person",to="Admin",on_delete=models.CASCADE)
 

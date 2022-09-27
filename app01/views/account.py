@@ -45,7 +45,7 @@ def account_login(request):
         request.session["info"] = {"id": admin_object.id, "name": admin_object.name}
 
         # session only 5 minutes
-        request.session.set_expiry(60*5)
+        request.session.set_expiry(60*60)
 
         return redirect("/admin/list/")
 
